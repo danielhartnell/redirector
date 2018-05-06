@@ -1,0 +1,10 @@
+version: 0.2
+
+phases:
+  install:
+    commands:
+      - echo "***** Doing some shit *****"
+  build:
+    commands:
+      - echo "This is where I could push to ECR..."
+
