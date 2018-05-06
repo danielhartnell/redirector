@@ -6,6 +6,7 @@ phases:
       - echo Build started on `date`
       - aws ecr get-login --region us-west-2 --no-include-email | bash
       - docker build -t redirector .
+      - cd vulnscanning && ./start-clair.sh
       - docker tag redirector ${REPOSITORY_URI}:latest
       - docker push ${REPOSITORY_URI}:latest
   post_build:
