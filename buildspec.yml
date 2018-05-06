@@ -1,10 +1,18 @@
-version: 0.2
+version: 0.1
 
 phases:
-  install:
-    commands:
-      - echo "***** Doing some shit *****"
   build:
     commands:
-      - echo "This is where I could push to ECR..."
+      - echo Build started on `date`
+      - echo Creating archive of python code.
+      - echo installing ansible-container
+      - git clone https://github.com/ansible/ansible-container.git
+      - cd ansible-container
+      - pip install -e ./ansible-container[docker]
+      - cd ansible && ansible-container build --with-volumes ../:/dashboard
+      - pip install docker-compose
+      - cd vulnscanning/ && chmod +x start-clair.sh && ./start-clair.sh
+  post_build:
+    commands:
+      - echo Build completed on `date`
 
