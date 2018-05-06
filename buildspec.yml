@@ -4,14 +4,10 @@ phases:
   build:
     commands:
       - echo Build started on `date`
-      - echo Creating archive of python code.
-      - echo installing ansible-container
-      - git clone https://github.com/ansible/ansible-container.git
-      - cd ansible-container
-      - pip install -e ./ansible-container[docker]
-      - cd ansible && ansible-container build --with-volumes ../:/dashboard
-      - pip install docker-compose
-      - cd vulnscanning/ && chmod +x start-clair.sh && ./start-clair.sh
+      - aws ecr get-login --region us-west-2 --no-include-email | bash
+      - docker build -t redirector .
+      - docker tag redirector ${REPOSITORY_URI}:latest
+      - docker push ${REPOSITORY_URI}:latest
   post_build:
     commands:
       - echo Build completed on `date`
