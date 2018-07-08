@@ -4,12 +4,12 @@ phases:
   build:
     commands:
       - echo Build started on `date`
-      - aws ecr get-login --region us-west-2 --no-include-email | bash
-      - docker build -t redirector .
-      - cd vulnscanning && ./start-clair.sh
-      - docker tag redirector ${REPOSITORY_URI}:latest
-      - docker push ${REPOSITORY_URI}:latest
+      - ACCOUNT_ID=`aws sts get-caller-identity --output text --query 'Account'`
+      - REPOSITORY_URI=${ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/test-eks
+      - aws ecr get-login --region ${AWS_REGION} --no-include-email | bash
+      - docker build -t test-eks .
+      - docker tag redirector ${REPOSITORY_URI}:${CODEBUILD_SOURCE_VERSION}
+      - docker push ${REPOSITORY_URI}:${CODEBUILD_SOURCE_VERSION}
   post_build:
     commands:
       - echo Build completed on `date`
-
