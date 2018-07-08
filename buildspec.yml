@@ -8,7 +8,7 @@ phases:
       - REPOSITORY_URI=${ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/test-eks
       - aws ecr get-login --region ${AWS_REGION} --no-include-email | bash
       - docker build -t test-eks .
-      - docker tag redirector ${REPOSITORY_URI}:${CODEBUILD_SOURCE_VERSION}
+      - docker tag test-eks ${REPOSITORY_URI}:${CODEBUILD_SOURCE_VERSION}
       - docker push ${REPOSITORY_URI}:${CODEBUILD_SOURCE_VERSION}
   post_build:
     commands:
