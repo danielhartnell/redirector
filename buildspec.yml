@@ -8,8 +8,8 @@ phases:
       - REPOSITORY_URI=${ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/test-eks
       - aws ecr get-login --region ${AWS_REGION} --no-include-email | bash
       - docker build -t test-eks .
-      - docker tag test-eks 787367611277.dkr.ecr.us-west-2.amazonaws.com/test-eks:v1
-      - docker push 787367611277.dkr.ecr.us-west-2.amazonaws.com/test-eks:v1
+      - docker tag test-eks 787367611277.dkr.ecr.us-west-2.amazonaws.com/test-eks:v2
+      - docker push 787367611277.dkr.ecr.us-west-2.amazonaws.com/test-eks:v2
       - echo ${ACCOUNT_ID}
       - echo ${REPOSITORY_URI}
       - echo ${CODEBUILD_SOURCE_VERSION}
